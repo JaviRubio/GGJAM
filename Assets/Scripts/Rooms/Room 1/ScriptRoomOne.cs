@@ -7,6 +7,10 @@ public class ScriptRoomOne : ScriptableObject, IRoomScript {
 	private time current_time;
 	public GameObject boquete, mesa;
 
+	public ScriptRoomOne(){
+		current_time = time.PRESENT;
+	}
+
 	void IRoomScript.changeTime(int toTime){
 		current_time = (time) toTime;
 	}

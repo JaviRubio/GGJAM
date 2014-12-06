@@ -16,26 +16,28 @@ public class ChangerScriptRoomOne : MonoBehaviour {
 
 	public enum time {PAST =0, PRESENT = 1, FUTURE = 2};
 	private time current_time;
-	public GameObject boquete, mesa;
 
 	void Start(){
 		changer = new ScriptRoomOne();
 		current_time = time.PRESENT;
-		boquete.SetActive (false);
+		//boquete.SetActive (false);
 	}
 
 	void Update(){
-		switch(changer.getCurrentTime())
+		if(current_time != (time) changer.getCurrentTime ())
 		{
-		case(0):
-			changer.toPast();
-			break;
-		case(1):
-			changer.toPresent();
-			break;
-		case(2):
-			changer.toFuture();
-			break;
+			switch(changer.getCurrentTime())
+			{
+			case(0):
+				changer.toPast();
+				break;
+			case(1):
+				changer.toPresent();
+				break;
+			case(2):
+				changer.toFuture();
+				break;
+			}
 		}
 
 	}

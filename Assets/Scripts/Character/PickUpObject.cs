@@ -14,7 +14,7 @@ public class PickUpObject : MonoBehaviour {
 	 * 
 	 * states describing what the character is doing anytime
 	 */
-	private enum states {MOVING = 0, READING = 1};
+	private enum states {MOVING = 0, READING = 1, DRAG_OBJECT = 2};
 	private states current_state;
 
 	//private float inputLag = 1.0f;
@@ -27,8 +27,9 @@ public class PickUpObject : MonoBehaviour {
 	
 	void Update () {
 
-		if(current_state != states.READING)
+		switch(current_state)
 		{
+		case(states.MOVING):
 			if(Input.GetKeyUp(KeyCode.E)){
 				if(!isObjectHeld){
 					interactWithObject();
@@ -37,7 +38,7 @@ public class PickUpObject : MonoBehaviour {
 					dropObject();
 				}
 			}
-			if(isObjectHeld)
+			if(isObjectHeld && current_state == states.MOVING)
 			{
 				holdObject();
 				if(objectHeld.CompareTag("Bola"))
@@ -56,26 +57,53 @@ public class PickUpObject : MonoBehaviour {
 					}
 				}
 			}
-		}
-		else{
+			break;
+		case(states.READING):
 			this.GetComponent<CharacterMotor>().enabled = false;
 			if(Input.GetKeyUp(KeyCode.E)){
 				if (current_state == states.READING)
 				{
 					objectHeld.GetComponent<DisplayTextAnimated>().deactivate ();
-
+					
 				}
 				this.current_state = states.MOVING;
 				this.GetComponent<CharacterMotor>().enabled = true;
 			}
-
+			
 			if(Input.GetKey (KeyCode.W)){
 				objectHeld.GetComponent<DisplayTextAnimated>().goUp();
-
+				
 			}
 			if(Input.GetKey(KeyCode.S)){
 				objectHeld.GetComponent<DisplayTextAnimated>().goDown();
 			}
+
+		break;
+		case(states.DRAG_OBJECT):
+			if(Input.GetKeyUp(KeyCode.E)){
+				this.GetComponent<CharacterMotor>().enabled = true;
+				this.GetComponent<FPSInputController>().enabled = true;
+				current_state = states.MOVING;
+				isObjectHeld = false;
+				objectHeld = null;
+			}
+			else{
+				if(Input.GetKey(KeyCode.W)){
+					dragObject (transform.forward);
+				}
+				if(Input.GetKey (KeyCode.S)){
+					dragObject (-transform.forward);
+				}
+
+				if(Input.GetKey (KeyCode.A)){
+					dragObject (-transform.right);
+				}
+
+				if(Input.GetKey (KeyCode.D)){
+					dragObject (transform.right);
+				}
+			}
+			break;
 
 		}
 	}
@@ -94,7 +122,7 @@ public class PickUpObject : MonoBehaviour {
 
 		if(current_state == states.MOVING)
 		{
-			if(hit.collider.gameObject.tag.Equals("Bola") || hit.collider.gameObject.tag.Equals ("Mesa"))
+			if(hit.collider.gameObject.tag.Equals("Bola") )
 			{
 				isObjectHeld = true;
 				objectHeld = hit.collider.gameObject;
@@ -102,6 +130,16 @@ public class PickUpObject : MonoBehaviour {
 				if(hit.collider.gameObject.tag.Equals("Bola"))
 					objectHeld.GetComponent<SphereState>().pickFromPedestal();
 				//objectHeld.transform.position = this.transform.position + this.transform.forward;
+			}
+			if( hit.collider.gameObject.tag.Equals ("Arrastrable"))
+			{
+				current_state = states.DRAG_OBJECT;
+				isObjectHeld = true;
+				objectHeld = hit.collider.gameObject;
+				this.GetComponent<CharacterMotor>().enabled = false;
+				this.GetComponent<FPSInputController>().enabled = false;
+
+
 			}
 			if(hit.collider.gameObject.tag.Equals ("Nota"))
 			{
@@ -128,11 +166,13 @@ public class PickUpObject : MonoBehaviour {
 		{
 			objectHeld.rigidbody.useGravity = true;
 			isObjectHeld = false;
+			objectHeld = null;
 		}
 		else{
 			if(objectHeld.GetComponent<SphereState>().onPlace)
 			{
 				objectHeld.GetComponent<SphereState>().placeOnPedestal();
+				objectHeld = null;
 
 			}
 			else objectHeld.rigidbody.useGravity = true;
@@ -140,6 +180,17 @@ public class PickUpObject : MonoBehaviour {
 		}
 	}
 
+	private void dragObject(Vector3 moveDir){
+		Vector3 dir = moveDir * Time.deltaTime;
+		objectHeld.rigidbody.MovePosition(objectHeld.rigidbody.position + dir);
+		Vector3 gravity = -Vector3.up;
+		this.GetComponent<CharacterController>().Move (dir + gravity);
+		//objectHeld.rigidbody.velocity = dir;
+		
+		//objectHeld.transform.position += dir;
+		//this.transform.position += dir;
 
+
+	}
 }
 
