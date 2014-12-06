@@ -40,6 +40,21 @@ public class PickUpObject : MonoBehaviour {
 			if(isObjectHeld)
 			{
 				holdObject();
+				if(objectHeld.CompareTag("Bola"))
+				{
+					if(Input.GetKeyUp (KeyCode.R))
+					{
+						objectHeld.GetComponent<SphereState>().setTime (0);
+					}
+					if(Input.GetKeyUp (KeyCode.T))
+					{
+						objectHeld.GetComponent<SphereState>().setTime (1);
+					}
+					if(Input.GetKeyUp (KeyCode.Y))
+					{
+						objectHeld.GetComponent<SphereState>().setTime (2);
+					}
+				}
 			}
 		}
 		else{
@@ -79,11 +94,13 @@ public class PickUpObject : MonoBehaviour {
 
 		if(current_state == states.MOVING)
 		{
-			if(hit.collider.gameObject.tag.Equals("Bola"))
+			if(hit.collider.gameObject.tag.Equals("Bola") || hit.collider.gameObject.tag.Equals ("Mesa"))
 			{
 				isObjectHeld = true;
 				objectHeld = hit.collider.gameObject;
 				objectHeld.rigidbody.useGravity = false;
+				if(hit.collider.gameObject.tag.Equals("Bola"))
+					objectHeld.GetComponent<SphereState>().pickFromPedestal();
 				//objectHeld.transform.position = this.transform.position + this.transform.forward;
 			}
 			if(hit.collider.gameObject.tag.Equals ("Nota"))
@@ -107,8 +124,20 @@ public class PickUpObject : MonoBehaviour {
 	}
 
 	private void dropObject(){
-		objectHeld.rigidbody.useGravity = true;
-		isObjectHeld = false;
+		if(!objectHeld.CompareTag ("Bola"))
+		{
+			objectHeld.rigidbody.useGravity = true;
+			isObjectHeld = false;
+		}
+		else{
+			if(objectHeld.GetComponent<SphereState>().onPlace)
+			{
+				objectHeld.GetComponent<SphereState>().placeOnPedestal();
+
+			}
+			else objectHeld.rigidbody.useGravity = true;
+			isObjectHeld = false;
+		}
 	}
 
 
