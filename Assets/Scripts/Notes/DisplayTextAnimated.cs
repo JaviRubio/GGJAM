@@ -17,7 +17,7 @@ public class DisplayTextAnimated : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		if(level_canvas == null)
-			level_canvas =  GameObject.Find ("Canvas").GetComponent<Canvas>();;
+			level_canvas =  GameObject.Find ("CanvasNotas").GetComponent<Canvas>();;
 		texto = level_canvas.GetComponentInChildren<Text>();
 		text_active = false;
 		texto.text = null;
