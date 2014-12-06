@@ -5,10 +5,11 @@ using UnityEngine.UI;
 public class DisplayTextAnimated : MonoBehaviour {
 
 	private Text texto;
-	private float letterDelay = 0.1f;
+	private float letterDelay = 0.05f;
 	private bool text_active;
 	public string contenido;
 	private float timePassed;
+	private Vector3 initial_pos;
 
 	public Canvas level_canvas;
 
@@ -20,6 +21,7 @@ public class DisplayTextAnimated : MonoBehaviour {
 		texto = level_canvas.GetComponentInChildren<Text>();
 		text_active = false;
 		texto.text = null;
+		initial_pos = texto.transform.position;
 		//this.texto.enabled = false;
 		level = 0;
 		timePassed = letterDelay;
@@ -55,6 +57,16 @@ public class DisplayTextAnimated : MonoBehaviour {
 		this.texto.enabled = false;
 		texto.text = null;
 		level = 0;
+		texto.transform.position = initial_pos;
+	}
+
+	public void goUp(){
+		texto.transform.position += texto.transform.up;
+	}
+
+	public void goDown(){
+
+		texto.transform.position -= texto.transform.up;
 	}
 
 

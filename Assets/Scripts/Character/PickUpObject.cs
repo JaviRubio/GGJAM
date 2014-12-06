@@ -48,11 +48,18 @@ public class PickUpObject : MonoBehaviour {
 				if (current_state == states.READING)
 				{
 					objectHeld.GetComponent<DisplayTextAnimated>().deactivate ();
-						
 
 				}
 				this.current_state = states.MOVING;
 				this.GetComponent<CharacterMotor>().enabled = true;
+			}
+
+			if(Input.GetKey (KeyCode.W)){
+				objectHeld.GetComponent<DisplayTextAnimated>().goUp();
+
+			}
+			if(Input.GetKey(KeyCode.S)){
+				objectHeld.GetComponent<DisplayTextAnimated>().goDown();
 			}
 
 		}
