@@ -35,7 +35,7 @@ public class DisplayTextAnimated : MonoBehaviour {
 				//this.enabled = true;
 			if(timePassed <= 0.0f && level < contenido.Length)
 			{
-				Debug.Log(level);
+
 				texto.text += contenido[level];
 				level ++;
 				timePassed = letterDelay;
