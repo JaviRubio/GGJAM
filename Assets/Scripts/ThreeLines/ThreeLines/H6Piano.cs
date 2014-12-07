@@ -21,7 +21,7 @@ namespace ThreeLines
             };
             _futureSolution = new[]
             {
-                14, 17, 21, 19, 16, 0, 5, 7, 9
+                14, 17, 21, 19, 16, 12, 5, 7, 9
             };
             _count = 0;
         }
