@@ -17,6 +17,8 @@ public class ChangerScriptRoomOne : MonoBehaviour {
 	public enum time {PAST =0, PRESENT = 1, FUTURE = 2};
 	private time current_time;
 
+	public GameObject cuadro1, cuadro2, llave, muro;
+
 	void Start(){
 		changer = new ScriptRoomOne();
 		current_time = time.PRESENT;

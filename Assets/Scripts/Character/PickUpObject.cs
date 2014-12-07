@@ -147,6 +147,13 @@ public class PickUpObject : MonoBehaviour {
 				objectHeld.GetComponent<DisplayTextAnimated>().setActive ();
 				this.current_state = states.READING;
 			}
+
+			if(hit.collider.gameObject.CompareTag ("Cuadro"))
+			{
+				objectHeld = hit.collider.gameObject;
+				isObjectHeld = true;
+				objectHeld.rigidbody.useGravity = false;
+			}
 		}
 
 	}
@@ -154,7 +161,8 @@ public class PickUpObject : MonoBehaviour {
 	private void holdObject(){
 		Ray playerAim = playerCam.camera.ViewportPointToRay(new Vector3(0.5f, 0.2f, 0));
 		objectHeld.transform.position = playerCam.transform.position + playerAim.direction * 0.5f;
-		objectHeld.transform.rotation = playerCam.transform.rotation;
+		objectHeld.transform.rotation = Quaternion.identity;
+		//objectHeld.transform.rotation = playerCam.transform.rotation;
 		//Vector3 nextPos = playerCam.transform.position + playerAim.direction * 2;
 		//Vector3 currPos = objectHeld.transform.position;
 		
@@ -162,12 +170,38 @@ public class PickUpObject : MonoBehaviour {
 	}
 
 	private void dropObject(){
+		switch(objectHeld.tag)
+		{
+		case("Bola"):
+			if(objectHeld.GetComponent<SphereState>().onPlace)
+			{
+				objectHeld.GetComponent<SphereState>().placeOnPedestal();
+				objectHeld = null;
+				
+			}
+			else objectHeld.rigidbody.useGravity = true;
+			isObjectHeld = false;
+			break;
+		case("Cuadro"):
+			if(objectHeld.GetComponent<cuadroStatus>().onPlace)
+			{
+				objectHeld.GetComponent<cuadroStatus>().placeOnAlcayata();
+			}
+			else{
+				objectHeld.rigidbody.useGravity = true;
+				objectHeld.rigidbody.isKinematic = false;
+			}
+			isObjectHeld = false;
+			objectHeld = null;
+			break;
+		}
+			/*
 		if(!objectHeld.CompareTag ("Bola"))
 		{
 			objectHeld.rigidbody.useGravity = true;
 			isObjectHeld = false;
 			objectHeld = null;
-		}
+			}
 		else{
 			if(objectHeld.GetComponent<SphereState>().onPlace)
 			{
@@ -177,7 +211,7 @@ public class PickUpObject : MonoBehaviour {
 			}
 			else objectHeld.rigidbody.useGravity = true;
 			isObjectHeld = false;
-		}
+		}*/
 	}
 
 	private void dragObject(Vector3 moveDir){
