@@ -22,7 +22,7 @@
                 'T','R','C','A','N','A','D','I','P','O','I','A','R','D',
                 'S','E','T','O','S','V','A','L','E','N','T','S','S','P'
             };
-            Reset();
+            _count = 0;
         }
 
         public bool CheckIsSolved()
@@ -38,13 +38,8 @@
                 ++_count;
                 return true;
             }
-            Reset();
+            _count = 0; 
             return false;
-        }
-
-        public void Reset()
-        {
-            _count = 0;
         }
     }
 }
