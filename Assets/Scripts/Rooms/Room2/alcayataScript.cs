@@ -29,6 +29,7 @@ public class alcayataScript : MonoBehaviour {
 		{
 			other.gameObject.GetComponent<cuadroStatus>().onPlace = false;
 			other.gameObject.GetComponent<cuadroStatus>().SetAlcayataPos(null);
+
 		}
 
 	}

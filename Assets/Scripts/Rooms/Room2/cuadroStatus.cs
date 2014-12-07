@@ -24,6 +24,7 @@ public class cuadroStatus : MonoBehaviour {
 	public void placeOnAlcayata(){
 		transform.position = alcayata.position;
 		transform.rotation = Quaternion.identity;
+		transform.Rotate (transform.up, 90);
 		rigidbody.isKinematic = true;
 		solved = true;
 	}
