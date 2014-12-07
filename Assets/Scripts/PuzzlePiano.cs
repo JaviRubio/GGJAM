@@ -7,6 +7,7 @@ public class PuzzlePiano : MonoBehaviour {
 	private Vector3 startPos,endPos;
 	private float currentLerpTime;
 	public float moveDistance,lerpTime;
+	public AudioClip clipSonido;
 
 	void Start(){
 		startPos = transform.position;
@@ -23,6 +24,7 @@ public class PuzzlePiano : MonoBehaviour {
 				//Lerpeemos todos!!
 				//reset when we press spacebar
 				currentLerpTime = 0f;
+				audio.PlayOneShot(clipSonido);
 				}
 			}
 		//increment timer once per frame
