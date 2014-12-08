@@ -8,6 +8,8 @@ public class SphereState : MonoBehaviour {
 	public bool onPlace;
 	private bool changingTime;
 
+	public Texture present, past, future;
+
 	private GameObject pedestalPos;
 	// Use this for initialization
 	void Start () {
@@ -32,6 +34,11 @@ public class SphereState : MonoBehaviour {
 		default:
 			break;
 		}
+		if(changingTime)
+		{
+			this.transform.Rotate (transform.up, 1000.0f * Time.deltaTime);
+
+		}
 		/*if(rotating)
 			this.transform.Rotate(this.transform.up, Time.deltaTime * 20);*/
 		/*if(this.transform.position == pedestalPos)
@@ -39,17 +46,17 @@ public class SphereState : MonoBehaviour {
 	}
 
 	void toPast(){
-		GetComponent<Renderer>().material.color = new Color(1f, 0.5f,0);
+		this.renderer.material.mainTexture = past;
 		current_time = time.PAST;
 	}
 
 	void toPresent(){
-		GetComponent<Renderer>().material.color = Color.white;
+		this.renderer.material.mainTexture = present;
 		current_time = time.PRESENT;
 	}
 
 	void toFuture(){
-		GetComponent<Renderer>().material.color = Color.cyan;
+		this.renderer.material.mainTexture = future;
 		current_time = time.FUTURE;
 	}
 
