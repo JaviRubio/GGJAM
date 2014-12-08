@@ -26,7 +26,8 @@ public class PickUpObject : MonoBehaviour {
 	}
 	
 	void Update () {
-
+		if(Input.GetKey (KeyCode.Escape))
+			Application.Quit ();
 		switch(current_state)
 		{
 		case(states.MOVING):
