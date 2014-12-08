@@ -89,10 +89,11 @@ public class PickUpObject : MonoBehaviour {
 			}
 			else{
 				if(Input.GetKey(KeyCode.W)){
-					dragObject (transform.forward);
+					//dragObject (transform.forward);
+					dragObject (-objectHeld.transform.up);
 				}
 				if(Input.GetKey (KeyCode.S)){
-					dragObject (-transform.forward);
+					dragObject (objectHeld.transform.up);
 				}
 
 				if(Input.GetKey (KeyCode.A)){
@@ -117,8 +118,9 @@ public class PickUpObject : MonoBehaviour {
 	private void interactWithObject(){
 		Ray playerAim = playerCam.camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 		RaycastHit hit;
-		
-		Physics.Raycast (playerAim, out hit);
+
+		Physics.SphereCast (playerAim, 2.5f, out hit, 5.0f);
+		//Physics.Raycast (playerAim, out hit);
 
 		if(current_state == states.MOVING)
 		{
