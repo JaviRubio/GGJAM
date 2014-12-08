@@ -11,7 +11,13 @@ Repositorio para la GCJAM de GG Games
 </ul>
 
 Efectos FX:
-Sonido tablet: Mike Koenig
-Sonido pasos madera: Visionary sound
-Sonido pasos metal: Visionary sound
-Sonido folios: Visionary sound
+<ul>
+
+<li>Sonido tablet: Mike Koenig</li>
+
+<li>Sonido pasos madera: Visionary sound</li>
+
+<li>Sonido pasos metal: Visionary sound</li>
+
+<li>Sonido folios: Visionary sound</li>
+</ul>
