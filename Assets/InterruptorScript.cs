@@ -8,7 +8,7 @@ public class InterruptorScript : MonoBehaviour {
 
 	public GameObject paredPasillo;
 	void Update(){
-		if(!solved)
+		if(solved)
 		{
 			if(!Open)
 			{
@@ -18,6 +18,8 @@ public class InterruptorScript : MonoBehaviour {
 					this.GetComponent<AudioSource>().Play ();
 			}
 		}
+		//else paredPasillo.SetActive (true);
 	}
-	
+
+
 }

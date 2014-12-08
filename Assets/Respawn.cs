@@ -17,6 +17,9 @@ public class Respawn : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
 		other.transform.position = location.position;
 		if(collider.gameObject.CompareTag ("Arrastrable"))
+		{
 			other.transform.localRotation.Set (-90.0f,0.0f,0.0f,0.0f);
+			collider.GetComponent<tableRespawn>().respawn();
+		}
 	}
 }

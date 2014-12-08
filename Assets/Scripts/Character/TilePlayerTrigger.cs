@@ -13,6 +13,8 @@ public class TilePlayerTrigger : MonoBehaviour {
 
 	private Light thisLight;
 
+	public GameObject statue;
+
 	public AudioSource dragSound;
 
 	void Start(){
@@ -94,6 +96,7 @@ public class TilePlayerTrigger : MonoBehaviour {
 
 					this.enabled = false;
 					Object.Destroy(thisLight);
+					statue.SetActive(false);
 				}
 			}
 

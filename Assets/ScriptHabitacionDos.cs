@@ -6,7 +6,7 @@ public class ScriptHabitacionDos : ScriptableObject, IRoomScript {
 	public enum time {PAST =0, PRESENT = 1, FUTURE = 2};
 	private time current_time;
 	
-	public GameObject cuadro1, cuadro2, llave, muro, puertaSecreta;
+	public GameObject cuadro1, cuadro2, muro, puertaSecreta;
 
 	public GameObject[] notasPresente, notasPasado, notasFuturo;
 
@@ -19,20 +19,12 @@ public class ScriptHabitacionDos : ScriptableObject, IRoomScript {
 		solved = false;
 	}
 	
-	public void passObjects(GameObject a, GameObject b, GameObject c, GameObject d, GameObject e){
-		cuadro1 = a;
-		cuadro2 = b;
-		llave = c;
-		muro = d;
-		puertaSecreta = e;
-	}
-	
 	void IRoomScript.changeTime(int toTime){
 		current_time = (time) toTime;
 	}
 	
 	void IRoomScript.toPast(){
-		llave.SetActive (false);
+
 		cuadro1.SetActive (true);
 		cuadro2.SetActive (false);
 		muro.SetActive (false);
@@ -43,11 +35,14 @@ public class ScriptHabitacionDos : ScriptableObject, IRoomScript {
 			i.SetActive(false);
 		foreach(GameObject i  in notasPasado)
 			i.SetActive(true);
+
+		openDoor.SetActive(false);
 	}
 	
 	void IRoomScript.toPresent(){
+		openDoor.SetActive(true);
 		muro.SetActive (true);
-		llave.SetActive (true);
+
 		if(!solved)
 		{
 			checkSolvedRoom();
@@ -69,7 +64,8 @@ public class ScriptHabitacionDos : ScriptableObject, IRoomScript {
 	}
 	
 	void IRoomScript.toFuture(){
-		llave.SetActive (false);
+		openDoor.SetActive (false);
+
 		cuadro1.SetActive (false);
 		cuadro2.SetActive (true);
 		muro.SetActive (false);
@@ -94,7 +90,7 @@ public class ScriptHabitacionDos : ScriptableObject, IRoomScript {
 		if(cuadro1.GetComponent<cuadroStatus>().getSolved () && cuadro2.GetComponent<cuadroStatus>().getSolved ())
 		{
 			solved = true;
-			openDoor.SetActive (false);
+			openDoor.GetComponent<InterruptorScript>().solved = true;
 		}
 		else solved = false;
 		

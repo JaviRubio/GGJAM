@@ -13,6 +13,8 @@ public class RoomThreeScript : ScriptableObject, IRoomScript {
 	public Texture past, present;
 	private H3Puzzle puzzleSolver;
 
+	//public GameObject statue;
+
 	public RoomThreeScript(){
 		puzzleSolver = new H3Puzzle();
 		current_time = time.PRESENT;
