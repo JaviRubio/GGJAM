@@ -7,6 +7,7 @@
         private readonly int _width;
         private readonly int _height;
         private const string Secret = "LOSSECRETOSNOSHACENVIVIRENLASSOMBRAS";
+		//private int lastx, lasty;
 
         public H3Puzzle()
         {
@@ -31,12 +32,17 @@
         }
         public bool WalkTile(int x, int y)
         {
+			/*if(lastx == x && lasty == y)
+				return true;*/
             int d = y * _width + x;
             if (d < 0 || d >= _width * _height) return false;
             if (_ground[d] == Secret[_count])
             {
                 ++_count;
+				//lastx = x;
+				//lasty = y;
                 return true;
+
             }
             _count = 0; 
             return false;

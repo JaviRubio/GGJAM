@@ -6,11 +6,11 @@ public class RoomThreeScript : ScriptableObject, IRoomScript {
 	
 	public enum time {PAST =0, PRESENT = 1, FUTURE = 2};
 	private time current_time;
-	public GameObject suelo, tiles;
+	public GameObject suelo, tiles, player;
 
 	public Texture past, present;
-
 	private H3Puzzle puzzleSolver;
+
 	public RoomThreeScript(){
 		puzzleSolver = new H3Puzzle();
 		current_time = time.PRESENT;
@@ -27,8 +27,12 @@ public class RoomThreeScript : ScriptableObject, IRoomScript {
 		if(suelo.renderer.material.mainTexture != past)
 		{
 			suelo.renderer.material.mainTexture = past;
-			tiles.SetActive (false);
+
+
 		}
+		tiles.SetActive (false);
+		if(player.GetComponentInChildren<Light>())
+			player.GetComponentInChildren<Light>().enabled = false;
 		//Debug.Log ("ASMDKSAM");
 	}
 	
@@ -37,14 +41,19 @@ public class RoomThreeScript : ScriptableObject, IRoomScript {
 		//suelo.renderer.material.SetTexture ("_MainTexture", present);
 		if(suelo.renderer.material.mainTexture != present)
 		{
-			//suelo.renderer.material.mainTexture = present;
-			tiles.SetActive(true);
+			suelo.renderer.material.mainTexture = present;
+
 		}
+		tiles.SetActive(true);
+		if(player.GetComponentInChildren<Light>() && !puzzleSolver.CheckIsSolved())
+			player.GetComponentInChildren<Light>().enabled = true;
 		
 	}
 	
 	void IRoomScript.toFuture(){
 		tiles.SetActive(false);
+		if(player.GetComponentInChildren<Light>())
+			player.GetComponentInChildren<Light>().enabled = false;
 	}
 	
 	int IRoomScript.getCurrentTime(){
