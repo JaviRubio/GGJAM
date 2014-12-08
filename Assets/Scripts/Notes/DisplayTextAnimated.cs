@@ -42,11 +42,16 @@ public class DisplayTextAnimated : MonoBehaviour {
 			//if(!this.enabled)
 				//this.enabled = true;
 			if(!soundPlayed)
-				if(!this.GetComponent<AudioSource>().isPlaying)
+			{
+				if(this.GetComponent<AudioSource>()!= null)
 				{
-					this.GetComponent<AudioSource>().Play();
-				soundPlayed = true;
+					if(!this.GetComponent<AudioSource>().isPlaying)
+					{
+						this.GetComponent<AudioSource>().Play();
+					soundPlayed = true;
+					}
 				}
+			}
 
 
 			if(timePassed <= 0.0f && level < contenido.Length)

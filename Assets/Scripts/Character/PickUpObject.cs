@@ -119,46 +119,48 @@ public class PickUpObject : MonoBehaviour {
 		Ray playerAim = playerCam.camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 		RaycastHit hit;
 
-		Physics.SphereCast (playerAim, 2.5f, out hit, 5.0f);
-		//Physics.Raycast (playerAim, out hit);
-
-		if(current_state == states.MOVING)
+		if(Physics.SphereCast (playerAim,  0.5f, out hit, 1.0f))
 		{
-			if(hit.collider.gameObject.tag.Equals("Bola") )
+			//Physics.Raycast (playerAim, out hit);
+
+			if(current_state == states.MOVING)
 			{
-				isObjectHeld = true;
-				objectHeld = hit.collider.gameObject;
-				objectHeld.rigidbody.useGravity = false;
-				if(hit.collider.gameObject.tag.Equals("Bola"))
-					objectHeld.GetComponent<SphereState>().pickFromPedestal();
-				//objectHeld.transform.position = this.transform.position + this.transform.forward;
-			}
-			if( hit.collider.gameObject.tag.Equals ("Arrastrable"))
-			{
-				current_state = states.DRAG_OBJECT;
-				isObjectHeld = true;
-				objectHeld = hit.collider.gameObject;
-				this.GetComponent<CharacterMotor>().enabled = false;
-				this.GetComponent<FPSInputController>().enabled = false;
+				if(hit.collider.gameObject.tag.Equals("Bola") )
+				{
+					isObjectHeld = true;
+					objectHeld = hit.collider.gameObject;
+					objectHeld.rigidbody.useGravity = false;
+					if(hit.collider.gameObject.tag.Equals("Bola"))
+						objectHeld.GetComponent<SphereState>().pickFromPedestal();
+					//objectHeld.transform.position = this.transform.position + this.transform.forward;
+				}
+				if( hit.collider.gameObject.tag.Equals ("Arrastrable"))
+				{
+					current_state = states.DRAG_OBJECT;
+					isObjectHeld = true;
+					objectHeld = hit.collider.gameObject;
+					this.GetComponent<CharacterMotor>().enabled = false;
+					this.GetComponent<FPSInputController>().enabled = false;
 
 
-			}
-			if(hit.collider.gameObject.tag.Equals ("Nota"))
-			{
-				objectHeld = hit.collider.gameObject;
-				objectHeld.GetComponent<DisplayTextAnimated>().setActive ();
-				this.current_state = states.READING;
-			}
+				}
+				if(hit.collider.gameObject.tag.Equals ("Nota"))
+				{
+					objectHeld = hit.collider.gameObject;
+					objectHeld.GetComponent<DisplayTextAnimated>().setActive ();
+					this.current_state = states.READING;
+				}
 
-			if(hit.collider.gameObject.CompareTag ("Cuadro"))
-			{
-				objectHeld = hit.collider.gameObject;
-				isObjectHeld = true;
-				objectHeld.rigidbody.useGravity = false;
-			}
-			if(hit.collider.gameObject.CompareTag ("InterruptorH1"))
-			{
-				hit.collider.GetComponent<InterruptorScript>().solved = true;
+				if(hit.collider.gameObject.CompareTag ("Cuadro"))
+				{
+					objectHeld = hit.collider.gameObject;
+					isObjectHeld = true;
+					objectHeld.rigidbody.useGravity = false;
+				}
+				if(hit.collider.gameObject.CompareTag ("InterruptorH1"))
+				{
+					hit.collider.GetComponent<InterruptorScript>().solved = true;
+				}
 			}
 			/*if(hit.collider.gameObject.CompareTag ("TioDelFinal"))
 			{

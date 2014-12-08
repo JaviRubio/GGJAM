@@ -7,13 +7,15 @@ public class MirarJugador : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		target = GameObject.Find("PlayerDavid").transform;
+		target = (Transform) GameObject.Find("PlayerDavid").transform;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(target != null){
-			transform.LookAt(target);
+			//transform.LookAt(target);
+			transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+
 			//this.transform.eulerAngles.z=0;
 			//this.transform.eulerAngles.x=0;
 		}
