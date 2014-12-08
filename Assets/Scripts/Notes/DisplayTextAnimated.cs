@@ -14,11 +14,13 @@ public class DisplayTextAnimated : MonoBehaviour {
 	private float timePassed;
 	private Vector3 initial_pos;
 
+	private bool soundPlayed;
 	public Canvas level_canvas;
 
 	private int level;
 	// Use this for initialization
 	void Start () {
+		soundPlayed = false;
 		if(level_canvas == null)
 			level_canvas =  GameObject.Find ("CanvasNotas").GetComponent<Canvas>();
 		texto = level_canvas.GetComponentInChildren<Text>();
@@ -39,6 +41,14 @@ public class DisplayTextAnimated : MonoBehaviour {
 		{
 			//if(!this.enabled)
 				//this.enabled = true;
+			if(!soundPlayed)
+				if(!this.GetComponent<AudioSource>().isPlaying)
+				{
+					this.GetComponent<AudioSource>().Play();
+				soundPlayed = true;
+				}
+
+
 			if(timePassed <= 0.0f && level < contenido.Length)
 			{
 
@@ -57,6 +67,7 @@ public class DisplayTextAnimated : MonoBehaviour {
 	}
 
 	public void deactivate(){
+		soundPlayed = false;
 		text_active = false;
 		this.texto.enabled = false;
 		texto.text = null;
