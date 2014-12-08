@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Xml; 
+using System.IO; 
 
 public class DisplayTextAnimated : MonoBehaviour {
 
+	public string nameNota;
 	private Text texto;
 	private float letterDelay = 0.05f;
 	private bool text_active;
-	public string contenido;
+	private string contenido;
 	private float timePassed;
 	private Vector3 initial_pos;
 
@@ -17,7 +20,7 @@ public class DisplayTextAnimated : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		if(level_canvas == null)
-			level_canvas =  GameObject.Find ("CanvasNotas").GetComponent<Canvas>();;
+			level_canvas =  GameObject.Find ("CanvasNotas").GetComponent<Canvas>();
 		texto = level_canvas.GetComponentInChildren<Text>();
 		text_active = false;
 		texto.text = null;
@@ -25,6 +28,7 @@ public class DisplayTextAnimated : MonoBehaviour {
 		//this.texto.enabled = false;
 		level = 0;
 		timePassed = letterDelay;
+		contenido = LoadStringFromDisk (nameNota);
 
 	}
 	
@@ -69,5 +73,13 @@ public class DisplayTextAnimated : MonoBehaviour {
 		texto.transform.position -= texto.transform.up;
 	}
 
+	//Metodo que carga el contenido de un fichero en un string
+	private string LoadStringFromDisk(string nameString) 
+	{ 
+		StreamReader r = File.OpenText("Assets\\Scripts\\Notes\\"+nameString); 
+		string _info = r.ReadToEnd(); 
+		r.Close(); 
+		return _info;
+	} 
 
 }

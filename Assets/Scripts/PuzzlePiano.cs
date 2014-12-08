@@ -20,6 +20,7 @@ public class PuzzlePiano : MonoBehaviour {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 			Physics.Raycast(ray,out hit);
+			//Da nullpointer exception cuando el raycast no apunta a nada,pero funciona correctamente,lo suyo seria añadir un try-catch
 			if(hit.collider.name==this.gameObject.name){
 				//Lerpeemos todos!!
 				//reset when we press spacebar
