@@ -87,7 +87,7 @@ public class DisplayTextAnimated : MonoBehaviour {
 	//Metodo que carga el contenido de un fichero en un string
 	private string LoadStringFromDisk(string nameString) 
 	{ 
-		StreamReader r = File.OpenText("Assets\\Scripts\\Notes\\"+nameString); 
+		StreamReader r = File.OpenText("Assets\\Notas\\"+nameString); 
 		string _info = r.ReadToEnd(); 
 		r.Close(); 
 		return _info;
