@@ -8,6 +8,8 @@ public class RoomThreeScript : ScriptableObject, IRoomScript {
 	private time current_time;
 	public GameObject suelo, tiles, player;
 
+	public GameObject[] notasPresente, notasPasado, notasFuturo;
+
 	public Texture past, present;
 	private H3Puzzle puzzleSolver;
 
@@ -33,6 +35,13 @@ public class RoomThreeScript : ScriptableObject, IRoomScript {
 		tiles.SetActive (false);
 		if(player.GetComponentInChildren<Light>())
 			player.GetComponentInChildren<Light>().enabled = false;
+
+		foreach(GameObject i in notasPresente)
+			i.SetActive (false);
+		foreach(GameObject i in notasFuturo)
+			i.SetActive(false);
+		foreach(GameObject i  in notasPasado)
+			i.SetActive(true);
 		//Debug.Log ("ASMDKSAM");
 	}
 	
@@ -47,6 +56,13 @@ public class RoomThreeScript : ScriptableObject, IRoomScript {
 		tiles.SetActive(true);
 		if(player.GetComponentInChildren<Light>() && !puzzleSolver.CheckIsSolved())
 			player.GetComponentInChildren<Light>().enabled = true;
+
+		foreach(GameObject i in notasPresente)
+			i.SetActive (true);
+		foreach(GameObject i in notasFuturo)
+			i.SetActive(false);
+		foreach(GameObject i  in notasPasado)
+			i.SetActive(false);
 		
 	}
 	
@@ -54,6 +70,13 @@ public class RoomThreeScript : ScriptableObject, IRoomScript {
 		tiles.SetActive(false);
 		if(player.GetComponentInChildren<Light>())
 			player.GetComponentInChildren<Light>().enabled = false;
+
+		foreach(GameObject i in notasPresente)
+			i.SetActive (false);
+		foreach(GameObject i in notasFuturo)
+			i.SetActive(true);
+		foreach(GameObject i  in notasPasado)
+			i.SetActive(false);
 	}
 	
 	int IRoomScript.getCurrentTime(){

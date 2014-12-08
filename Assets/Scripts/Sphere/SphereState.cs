@@ -37,8 +37,12 @@ public class SphereState : MonoBehaviour {
 		if(changingTime)
 		{
 			this.transform.Rotate (transform.up, 1000.0f * Time.deltaTime);
+			if(!this.GetComponent<AudioSource>().isPlaying)
+				this.GetComponent<AudioSource>().Play();
 
 		}
+		else this.GetComponent<AudioSource>().Stop();
+
 		/*if(rotating)
 			this.transform.Rotate(this.transform.up, Time.deltaTime * 20);*/
 		/*if(this.transform.position == pedestalPos)

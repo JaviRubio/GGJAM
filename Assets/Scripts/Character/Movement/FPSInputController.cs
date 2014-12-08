@@ -23,6 +23,8 @@ public class FPSInputController : MonoBehaviour
 
         if (directionVector != Vector3.zero)
         {
+			if(!this.GetComponent<AudioSource>().isPlaying)
+				this.GetComponent<AudioSource>().PlayDelayed(0.5f);
             // Get the length of the directon vector and then normalize it
             // Dividing by the length is cheaper than normalizing when we already have the length anyway
             float directionLength = directionVector.magnitude;
@@ -38,7 +40,7 @@ public class FPSInputController : MonoBehaviour
             // Multiply the normalized direction vector by the modified length
             directionVector = directionVector * directionLength;
         }
-
+		else this.GetComponent<AudioSource>().Stop ();
         // Apply the direction to the CharacterMotor
         motor.inputMoveDirection = transform.rotation * directionVector;
         motor.inputJump = Input.GetButton("Jump");

@@ -156,6 +156,15 @@ public class PickUpObject : MonoBehaviour {
 				isObjectHeld = true;
 				objectHeld.rigidbody.useGravity = false;
 			}
+			if(hit.collider.gameObject.CompareTag ("InterruptorH1"))
+			{
+				hit.collider.GetComponent<InterruptorScript>().solved = true;
+			}
+			/*if(hit.collider.gameObject.CompareTag ("TioDelFinal"))
+			{
+				objectHeld = hit.collider.gameObject;
+
+			}*/
 		}
 
 	}

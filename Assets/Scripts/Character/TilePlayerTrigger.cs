@@ -13,6 +13,8 @@ public class TilePlayerTrigger : MonoBehaviour {
 
 	private Light thisLight;
 
+	public AudioSource dragSound;
+
 	void Start(){
 		solving = false;
 		solved = false;
@@ -85,6 +87,8 @@ public class TilePlayerTrigger : MonoBehaviour {
 					thisLight.enabled = !thisLight.enabled;
 					lightDelay = 0.3f;
 					times --;
+					if(!dragSound.isPlaying)
+						dragSound.Play ();
 				}
 				else{
 

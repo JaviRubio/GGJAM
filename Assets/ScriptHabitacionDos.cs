@@ -7,7 +7,10 @@ public class ScriptHabitacionDos : ScriptableObject, IRoomScript {
 	private time current_time;
 	
 	public GameObject cuadro1, cuadro2, llave, muro, puertaSecreta;
-	
+
+	public GameObject[] notasPresente, notasPasado, notasFuturo;
+
+	public GameObject openDoor;
 	private bool solved;
 	
 	public ScriptHabitacionDos(){
@@ -34,6 +37,12 @@ public class ScriptHabitacionDos : ScriptableObject, IRoomScript {
 		cuadro2.SetActive (false);
 		muro.SetActive (false);
 		puertaSecreta.SetActive (false);
+		foreach(GameObject i in notasPresente)
+			i.SetActive (false);
+		foreach(GameObject i in notasFuturo)
+			i.SetActive(false);
+		foreach(GameObject i  in notasPasado)
+			i.SetActive(true);
 	}
 	
 	void IRoomScript.toPresent(){
@@ -50,6 +59,12 @@ public class ScriptHabitacionDos : ScriptableObject, IRoomScript {
 		}
 		cuadro1.SetActive(true);
 		cuadro2.SetActive (true);
+		foreach(GameObject i in notasPresente)
+			i.SetActive (true);
+		foreach(GameObject i in notasFuturo)
+			i.SetActive(false);
+		foreach(GameObject i  in notasPasado)
+			i.SetActive(false);
 		
 	}
 	
@@ -59,6 +74,12 @@ public class ScriptHabitacionDos : ScriptableObject, IRoomScript {
 		cuadro2.SetActive (true);
 		muro.SetActive (false);
 		puertaSecreta.SetActive (false);
+		foreach(GameObject i in notasPresente)
+			i.SetActive (false);
+		foreach(GameObject i in notasFuturo)
+			i.SetActive(true);
+		foreach(GameObject i  in notasPasado)
+			i.SetActive(false);
 	}
 	
 	int IRoomScript.getCurrentTime(){
@@ -71,7 +92,10 @@ public class ScriptHabitacionDos : ScriptableObject, IRoomScript {
 	
 	void checkSolvedRoom(){
 		if(cuadro1.GetComponent<cuadroStatus>().getSolved () && cuadro2.GetComponent<cuadroStatus>().getSolved ())
+		{
 			solved = true;
+			openDoor.SetActive (false);
+		}
 		else solved = false;
 		
 	}
