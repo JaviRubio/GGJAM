@@ -7,4 +7,7 @@ public class FuncionesMenu : MonoBehaviour {
 		Application.LoadLevel ("Entrada_Ext");
 	}
 
+	public void Salir(){
+		Application.Quit ();
+	}
 }
